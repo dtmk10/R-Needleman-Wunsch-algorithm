@@ -25,11 +25,8 @@ scoreMatrixFunction <- function(rowSeq,colSeq,refTable){
       scoreMatrix[i,j] <<- refTable[rowSeq[i], colSeq[j]]
     }
   }
-  
-  return(scoreMatrix)
-}
 
-scoreMatrixFunction(s1v,s2v,blossum50)
+}
 
 # Function to make the Alignment and Direction Matrix
 # We are assuming that gapOpenings and gapExtensions have the same penalty
@@ -94,8 +91,6 @@ AlignDirMatrixFunction <- function(rowSeq, colSeq, scoreM, gapPenalty = -1){
   }
 }
 
-AlignDirMatrixFunction(s1v,s2v,scoreMatrix)
-
 # Function to make the TraceBack and getting the most optimal alignments
 TraceBackFunction <- function(rowSeq, colSeq, DirectM, AlignM){
   
@@ -105,8 +100,6 @@ TraceBackFunction <- function(rowSeq, colSeq, DirectM, AlignM){
   # Define the empty vectors of the alignments
   alignRow <- c()
   alignCol <- c()
-  
-  print("initializing TraceBack")
   
   # Defining a function that is a while loop which will be making the trace back depending on the case in the DirectionMatrix
   
@@ -195,4 +188,23 @@ TraceBackFunction <- function(rowSeq, colSeq, DirectM, AlignM){
   print(paste("Puntuacion de alineamiento: ", AlignM[length(rowSeq), length(colSeq)]))
   
 }
-TraceBackFunction(s1v,s2v, DirectionMatrix, AlignmentScore)
+
+scoreMatrixFunction(s1v,s2v,blossum50)
+AlignDirMatrixFunction(s1v,s2v,scoreMatrix)
+
+PrintMatrixAndAlignment <- function(){
+  
+  print("Score Matrix:")
+  print(scoreMatrix)
+  
+  print("Alignment Score Matrix:")
+  print(AlignmentScore)
+  
+  print("Direction Matrix:")
+  print(DirectionMatrix)
+  
+  print("Trace Back Aftermath:")
+  TraceBackFunction(s1v,s2v, DirectionMatrix, AlignmentScore)
+}
+
+PrintMatrixAndAlignment()
